@@ -1,13 +1,15 @@
-// DRONERA — Navbar (English, Premium)
+// DRONERA — Navbar (Hungarian, Premium)
 
-const { useState: useNavState, useEffect: useNavEffect } = React;
+const { useState: useNavState, useEffect: useNavEffect, useRef: useNavRef } = React;
 
 function Navbar({ currentPage, onNavigate }) {
-  const [scrolled, setScrolled] = useState(false);
-  const [scrollPct, setScrollPct] = useState(0);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useNavState(false);
+  const [scrollPct, setScrollPct] = useNavState(0);
+  const [mobileOpen, setMobileOpen] = useNavState(false);
+  const navRef = useNavRef(null);
 
   useNavEffect(() => {
+    if(window.gsap && navRef.current) gsap.from(navRef.current, { y: -100, opacity:0, duration: 1.2, ease: "power3.out", delay: 0.2 });
     const onScroll = () => {
       setScrolled(window.scrollY > 60);
       const el = document.documentElement;
@@ -23,7 +25,7 @@ function Navbar({ currentPage, onNavigate }) {
   const links = [
     { id: "energy",       label: "Energetika" },
     { id: "agriculture",  label: "Mezőgazdaság" },
-    { id: "geodesy",      label: "Geodezia" },
+    { id: "geodesy",      label: "Geodézia" },
     { id: "contact",      label: "Kapcsolat" },
   ];
 
@@ -38,7 +40,7 @@ function Navbar({ currentPage, onNavigate }) {
         pointerEvents:"none",
       }}/>
 
-      <nav style={{
+      <nav ref={navRef} style={{
         position:"fixed",top:0,left:0,width:"100%",zIndex:8000,
         transition:"background 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.5s",
         background: scrolled ? "rgba(5,5,7,0.88)" : "transparent",
@@ -58,7 +60,7 @@ function Navbar({ currentPage, onNavigate }) {
           }}>DRONERA</button>
 
           {/* Desktop links */}
-          <div style={{display:"flex",gap:"36px",alignItems:"center"}}>
+          <div className="desktop-nav" style={{display:"flex",gap:"36px",alignItems:"center"}}>
             {links.map(link => (
               <NavLink
                 key={link.id}
@@ -111,7 +113,7 @@ function Navbar({ currentPage, onNavigate }) {
 }
 
 function NavLink({ label, active, onClick }) {
-  const [hover, setHover] = useState(false);
+  const [hover, setHover] = useNavState(false);
   return (
     <button
       onClick={onClick}

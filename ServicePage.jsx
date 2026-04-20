@@ -1,109 +1,96 @@
-// DRONERA — Service Page (English, Premium)
+// DRONERA — Service Page (Hungarian, Premium GSAP)
 
 const { useState: useSPState, useEffect: useSPEffect, useRef: useSPRef } = React;
 
 const SERVICE_DATA = {
   energy: {
     accentColor: "#ED6D40",
-    heroTitle: "ENERGY",
-    heroSubtitle: "Aerial Inspection. Thermography. Precision.",
-    introLeft: "Solar, wind & grid networks — monitored from above.",
-    introRight: "The energy sector demands continuous oversight. DRONERA's thermographic and visual inspection services enable early fault detection, maintenance cost optimization, and maximum system efficiency — without scaffolding, downtime, or risk.",
+    heroTitle: "ENERGETIKA",
+    heroSubtitle: "Légi inspekció. Termográfia. Precizitás.",
+    introLeft: "Napelem, szél & hálózati rendszerek — fentről felügyelve.",
+    introRight: "Az energiaszektor folyamatos felügyeletet igényel. A DRONERA termográfiai és vizuális inspekciós szolgáltatásai lehetővé teszik az állványozás, leállás és kockázat nélküli korai hibafelismerést, a karbantartási költségek optimalizálását és a rendszer maximális hatékonyságát.",
     services: [
       {
-        title: "Solar Farm Inspection",
-        description: "High-resolution thermographic imaging for hotspot detection and panel fault identification. Covering hundreds of hectares in hours rather than days.",
+        title: "Napelempark Inspekció",
+        description: "Nagyfelbontású termográfiai felvételek a hotspotok és panelek hibáinak azonosítására. Több száz hektár felmérése napok helyett órák alatt.",
       },
       {
-        title: "Wind Turbine Survey",
-        description: "Close-range visual inspection of rotor blades, nacelles, and towers — no scaffolding required. Full documentation of cracks, erosion, and structural anomalies.",
+        title: "Szélturbina Felmérés",
+        description: "A rotorlapátok, gondolák és tornyok közeli vizuális vizsgálata — állványozás nélkül. Repedések, erózió és szerkezeti anomáliák teljes dokumentációja.",
       },
       {
-        title: "Power Line Monitoring",
-        description: "Condition assessment of high- and medium-voltage lines, poles, and fittings. Vegetation zone monitoring and intervention planning.",
+        title: "Hálózat Monitoring",
+        description: "Nagy- és középfeszültségű vezetékek, oszlopok és szerelvények állapotfelmérése. Növényzet monitorozás és a beavatkozás tervezése.",
       },
     ],
-    timeline: ["Consultation", "Mission Planning", "Flight Operations", "Data Analysis", "Report Delivery"],
-    techTitle: "Equipment & Sensors",
+    timeline: ["Konzultáció", "Küldetéstervezés", "Repülés", "Adatelemzés", "Riport Átadás"],
+    techTitle: "Felszerelés & Szenzorok",
     techItems: [
-      { name: "Thermal Camera", detail: "Radiometric infrared camera with ±0.05°C accuracy and automated heat-map generation." },
-      { name: "42 MP RGB", detail: "High-resolution visual sensor for detailed surface defect documentation." },
-      { name: "DJI Matrice 350 RTK", detail: "Industrial drone platform with RTK positioning and extended flight endurance." },
-      { name: "AI Fault Detection", detail: "Machine-learning anomaly recognition applied automatically across all captured frames." },
+      { name: "Hőkamera", detail: "Radiometrikus infravörös kamera ±0.05°C pontossággal és automatizált hőtérkép-generálással." },
+      { name: "42 MP RGB", detail: "Nagyfelbontású vizuális szenzor a felületi hibák részletes dokumentálására." },
+      { name: "DJI Matrice 350 RTK", detail: "Ipari drón platform RTK pozicionálással és kiterjesztett repülési idővel." },
+      { name: "AI Hibafelismerés", detail: "Gépi tanuláson alapuló anomália-felismerés, amely minden rögzített képkockán lefut." },
     ],
   },
   agriculture: {
     accentColor: "#91B422",
-    heroTitle: "AGRICULTURE",
-    heroSubtitle: "NDVI Analysis. Precision Monitoring. Damage Assessment.",
-    introLeft: "Field mapping, vegetation analysis and damage surveys — by drone.",
-    introRight: "Precision agriculture is the future of farming. DRONERA's multispectral and RGB drone imagery delivers real-time data to growers: NDVI-based crop health analysis, insurance-grade damage documentation, and variable-rate application maps.",
+    heroTitle: "MEZŐGAZDASÁG",
+    heroSubtitle: "NDVI Analízis. Precíziós Monitoring. Kárfelmérés.",
+    introLeft: "Területtérképezés, vegetációs elemzés és kárfelmérés — drónnal.",
+    introRight: "A precíziós mezőgazdaság a jövő. A DRONERA multispektrális és RGB drónfelvételei valós idejű adatokat szolgáltatnak: NDVI-alapú növényegészségügyi elemzés, biztosítási szintű károk dokumentálása és differenciált kijuttatási térképek.",
     services: [
       {
-        title: "NDVI Analysis",
-        description: "Multispectral vegetation index maps for crop health visualization and treatment zone delineation — delivered within 24 hours of flight.",
+        title: "NDVI Analízis",
+        description: "Multispektrális vegetációs intextérképek a termés egészségének vizualizálására és a kezelési zónák lehatárolására — a repüléstől számított 24 órán belül.",
       },
       {
-        title: "Damage Assessment",
-        description: "Georeferenced documentation of hail, drought, flood and other agricultural damage events for insurance and legal purposes.",
+        title: "Kárfelmérés",
+        description: "Jégeső, aszály, belvíz és egyéb mezőgazdasági káresemények georeferált dokumentációja biztosítási és jogi célokra.",
       },
       {
-        title: "Precision Spraying",
-        description: "Variable-rate agrochemical application with reduced chemical use and maximum coverage, following zone-specific prescription maps.",
+        title: "Precíziós Kijuttatás",
+        description: "Változó dózisú agrokémiai kijuttatás a zónaspecifikus előírási térképek alapján, csökkentett vegyszerhasználattal és maximális fedettséggel.",
       },
     ],
-    timeline: ["Consultation", "Site Survey", "Flight Operations", "Processing", "Report Delivery"],
-    techTitle: "Equipment",
+    timeline: ["Konzultáció", "Területfelmérés", "Repülés", "Adatfeldolgozás", "Riport Átadás"],
+    techTitle: "Felszerelés",
     techItems: [
-      { name: "Multispectral Sensor", detail: "5-band multispectral camera for NDVI, NDRE and other vegetation index calculations." },
-      { name: "Sprayer Drone", detail: "30L agricultural drone with variable-rate dosing and automated lane management." },
-      { name: "RTK GPS", detail: "Centimeter-level positioning accuracy for fully georeferenced outputs." },
-      { name: "Automated Processing", detail: "Cloud-based data processing and zone map generation within 24 hours." },
+      { name: "Multispektrális Szenzor", detail: "5-sávos multispektrális kamera NDVI, NDRE és egyéb vegetációs indexek számításához." },
+      { name: "Permetező Drón", detail: "30 literes mezőgazdasági drón változó dózisú adagolással és automatikus sávkezeléssel." },
+      { name: "RTK GPS", detail: "Centiméteres pozicionálási pontosság a teljesen georeferált eredményekért." },
+      { name: "Automatizált Feldolgozás", detail: "Felhőalapú adatfeldolgozás és zónatérkép-generálás 24 órán belül." },
     ],
   },
   geodesy: {
     accentColor: "#4682B4",
-    heroTitle: "GEODESY",
-    heroSubtitle: "Photogrammetry. 3D Modeling. Point Cloud.",
-    introLeft: "Centimeter-accurate surveys — from single buildings to entire sites.",
-    introRight: "DRONERA's geodetic services combine photogrammetric processing, LiDAR technology, and RTK-based accuracy to deliver the data demanded by the most rigorous construction, planning, and cadastral workflows.",
+    heroTitle: "GEODÉZIA",
+    heroSubtitle: "Fotogrammetria. 3D Modellezés. Pontfelhő.",
+    introLeft: "Centiméter-pontos felmérések — egyedi épületektől a teljes létesítményekig.",
+    introRight: "A DRONERA geodéziai szolgáltatásai ötvözik a fotogrammetriai feldolgozást, a LiDAR technológiát és az RTK-alapú pontosságot, hogy kiszolgálják a legszigorúbb építési, tervezési és kataszteri munkafolyamatokat.",
     services: [
       {
-        title: "Photogrammetric Survey",
-        description: "High-resolution aerial photos processed into orthophotos, digital elevation models (DEM/DSM) and 3D point clouds for site and building surveys.",
+        title: "Fotogrammetriai Felmérés",
+        description: "Nagyfelbontású légifotók feldolgozása ortofotókká, digitális domborzatmodellekké (DEM/DSM) és 3D pontfelhőkké, terület- és épületfelmérésekhez.",
       },
       {
-        title: "3D Building Modeling",
-        description: "Complete, detailed 3D models of buildings, structures, and infrastructure elements — for renovation, design, and documentation purposes.",
+        title: "3D Épületmodellezés",
+        description: "Épületek, szerkezetek és infrastrukturális elemek teljes, részletes 3D modelljei — felújítási, tervezési és dokumentációs célokra.",
       },
       {
-        title: "Cadastral Survey",
-        description: "Parcel boundary surveys, area calculations, and cadastral documentation with full GIS integration.",
+        title: "Kataszteri Felmérés",
+        description: "Telekhatár-felmérés, területszámítás és kataszteri térképezés teljes GIS integrációval.",
       },
     ],
-    timeline: ["Consultation", "Ground Preparation", "Flight Operations", "Processing", "Delivery"],
-    techTitle: "Equipment & Software",
+    timeline: ["Konzultáció", "Földi Előkészítés", "Repülés", "Feldolgozás", "Átadás"],
+    techTitle: "Felszerelés & Szoftver",
     techItems: [
-      { name: "LiDAR Sensor", detail: "Laser scanner-based point cloud at 100+ pts/m², with full canopy penetration capability." },
-      { name: "42 MP RGB Camera", detail: "High-resolution imagery for stereo processing and orthophoto generation." },
-      { name: "RTK + GCP", detail: "RTK drone combined with ground control points for 1–2 cm absolute accuracy." },
-      { name: "Agisoft Metashape", detail: "Industry-standard photogrammetric processing with automated workflow pipelines." },
+      { name: "LiDAR Szenzor", detail: "Lézerszkenner alapú pontfelhő 100+ pont/m² sűrűséggel, teljes lombkorona áthatolási képességgel." },
+      { name: "42 MP RGB Kamera", detail: "Nagyfelbontású felvételek sztereofeldolgozáshoz és ortofotó-generáláshoz." },
+      { name: "RTK + Illesztőpontok", detail: "RTK drón földi illesztőpontokkal kombinálva 1–2 cm-es abszolút pontosságért." },
+      { name: "Agisoft Metashape", detail: "Iparági standard fotogrammetriai feldolgozás automatizált folyamatokkal." },
     ],
   },
 };
-
-function SPInView(threshold = 0.12) {
-  const ref = useSPRef(null);
-  const [vis, setVis] = useSPState(false);
-  useSPEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { setVis(true); obs.disconnect(); }
-    }, { threshold });
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
-  return [ref, vis];
-}
 
 function ServicePage({ pageId, onNavigate }) {
   const data = SERVICE_DATA[pageId];
@@ -111,6 +98,8 @@ function ServicePage({ pageId, onNavigate }) {
   const { accentColor: ac, heroTitle, heroSubtitle, introLeft, introRight, services, timeline, techTitle, techItems } = data;
 
   const [scanY, setScanY] = useSPState(0);
+  const containerRef = useSPRef(null);
+
   useSPEffect(() => {
     let raf;
     const start = performance.now();
@@ -120,16 +109,35 @@ function ServicePage({ pageId, onNavigate }) {
       raf = requestAnimationFrame(animate);
     };
     raf = requestAnimationFrame(animate);
+
+    // GSAP ScrollTrigger
+    if (window.gsap && window.ScrollTrigger && containerRef.current) {
+        const q = gsap.utils.selector(containerRef);
+        // Hero
+        gsap.fromTo(q(".sp-hero-title"), { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power4.out", stagger: 0.15 });
+        // Intro
+        gsap.fromTo(q(".sp-intro"), { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: q(".sp-intro"), start: "top 80%" } });
+        // Offering Header
+        gsap.fromTo(q(".sp-offering-header"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: q(".sp-offering-header"), start: "top 85%" } });
+        // Services rows
+        q(".sp-service-row").forEach(el => {
+            gsap.fromTo(el, { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } });
+        });
+        // Timeline
+        gsap.fromTo(q(".sp-tl-header"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: q(".sp-tl-header"), start: "top 85%" } });
+        q(".sp-tl-item").forEach(el => {
+            gsap.fromTo(el, { x: -20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } });
+        });
+        // Tech
+        gsap.fromTo(q(".sp-tech-header"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: q(".sp-tech-header"), start: "top 85%" } });
+        gsap.fromTo(q(".sp-tech-card"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: q(".sp-tech-card"), start: "top 85%" } });
+    }
+
     return () => cancelAnimationFrame(raf);
   }, [pageId]);
 
-  const [introRef, introVis] = SPInView();
-  const [cardsRef, cardsVis] = SPInView();
-  const [tlRef, tlVis] = SPInView();
-  const [techRef, techVis] = SPInView();
-
   return (
-    <div>
+    <div ref={containerRef}>
       {/* ── Hero ── */}
       <section style={{
         position:"relative",minHeight:"100vh",background:"#000",
@@ -161,17 +169,17 @@ function ServicePage({ pageId, onNavigate }) {
         </svg>
 
         <div style={{position:"relative",zIndex:10,paddingTop:"120px"}}>
-          <div style={{height:"3px",width:"72px",background:ac,marginBottom:"48px"}}/>
-          <h1 style={{
+          <div className="sp-hero-title" style={{height:"3px",width:"72px",background:ac,marginBottom:"48px", opacity:0}}/>
+          <h1 className="sp-hero-title" style={{
             fontFamily:"'Tanker',sans-serif",
             fontSize:"clamp(3.5rem,10vw,9rem)",
-            textTransform:"uppercase",letterSpacing:"0.02em",lineHeight:"0.88",color:ac,
+            textTransform:"uppercase",letterSpacing:"0.02em",lineHeight:"0.88",color:ac, opacity:0
           }}>{heroTitle}</h1>
-          <p style={{
+          <p className="sp-hero-title" style={{
             fontFamily:"'Tanker',sans-serif",
             fontSize:"clamp(1rem,2.5vw,1.8rem)",
             textTransform:"uppercase",letterSpacing:"0.02em",lineHeight:"1.2",
-            color:"rgba(255,255,255,0.45)",marginTop:"28px",maxWidth:"600px",
+            color:"rgba(255,255,255,0.45)",marginTop:"28px",maxWidth:"600px", opacity:0
           }}>{heroSubtitle}</p>
         </div>
         <div style={{
@@ -182,16 +190,10 @@ function ServicePage({ pageId, onNavigate }) {
 
       {/* ── Intro ── */}
       <section style={{background:"#020202",padding:"clamp(80px,8vw,160px) clamp(24px,5vw,120px)"}}>
-        <div
-          ref={introRef}
-          style={{
+        <div className="sp-intro" style={{
             display:"grid",gridTemplateColumns:"5fr 7fr",gap:"clamp(40px,5vw,100px)",
-            alignItems:"start",maxWidth:"1100px",
-            opacity: introVis ? 1 : 0,
-            transform: introVis ? "translateY(0)" : "translateY(32px)",
-            transition:"opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1)",
-          }}
-        >
+            alignItems:"start",maxWidth:"1100px", opacity:0
+          }}>
           <div>
             <div style={{height:"2px",width:"72px",background:ac,marginBottom:"48px"}}/>
             <h2 style={{
@@ -210,27 +212,22 @@ function ServicePage({ pageId, onNavigate }) {
 
       {/* ── Services list ── */}
       <section style={{background:"#060608",padding:"clamp(80px,8vw,160px) clamp(24px,5vw,120px)"}}>
-        <div ref={cardsRef} style={{maxWidth:"1000px"}}>
-          <div style={{
-            opacity: cardsVis ? 1 : 0,
-            transform: cardsVis ? "translateY(0)" : "translateY(24px)",
-            transition:"opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)",
-            marginBottom:"clamp(56px,6vw,100px)",
-          }}>
+        <div style={{maxWidth:"1000px"}}>
+          <div className="sp-offering-header" style={{marginBottom:"clamp(56px,6vw,100px)", opacity:0}}>
             <div style={{display:"flex",alignItems:"center",gap:"16px",marginBottom:"36px"}}>
               <div style={{height:"2px",width:"52px",background:ac}}/>
               <span style={{fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,
                 textTransform:"uppercase",letterSpacing:"0.22em",color:"rgba(255,255,255,0.3)"}}>
-                Our Offering
+                Kínálatunk
               </span>
             </div>
             <div style={{fontFamily:"'Tanker',sans-serif",fontSize:"clamp(2.5rem,5.5vw,5rem)",
               textTransform:"uppercase",lineHeight:"0.9",color:"#FAFAF8"}}>
-              How can we <span style={{color:ac}}>help?</span>
+              Ezzel tudunk <span style={{color:ac}}>segíteni.</span>
             </div>
           </div>
-          {services.map((c, i) => (
-            <ServiceRow key={c.title} item={c} accentColor={ac} index={i} visible={cardsVis}/>
+          {services.map(c => (
+            <ServiceRow key={c.title} item={c} accentColor={ac}/>
           ))}
         </div>
       </section>
@@ -240,24 +237,23 @@ function ServicePage({ pageId, onNavigate }) {
         background:"linear-gradient(180deg,#FAFAF8 0%,#F5F5F0 100%)",
         padding:"clamp(80px,8vw,160px) clamp(24px,5vw,120px)",
       }}>
-        <div ref={tlRef} style={{maxWidth:"1000px"}}>
-          <div style={{height:"2px",width:"72px",background:ac,marginBottom:"48px"}}/>
-          <h2 style={{
-            fontFamily:"'Tanker',sans-serif",fontSize:"clamp(2rem,5vw,4rem)",
-            textTransform:"uppercase",lineHeight:"0.9",color:"#0D0D0D",marginBottom:"16px",
-          }}>Process</h2>
-          <p style={{fontFamily:"'DM Sans',sans-serif",fontWeight:300,fontSize:"16px",
-            color:"rgba(0,0,0,0.4)",lineHeight:1.7,marginBottom:"60px",maxWidth:"520px"}}>
-            From consultation to delivery — dedicated expertise, efficient execution.
-          </p>
+        <div style={{maxWidth:"1000px"}}>
+          <div className="sp-tl-header" style={{opacity:0}}>
+              <div style={{height:"2px",width:"72px",background:ac,marginBottom:"48px"}}/>
+              <h2 style={{
+                fontFamily:"'Tanker',sans-serif",fontSize:"clamp(2rem,5vw,4rem)",
+                textTransform:"uppercase",lineHeight:"0.9",color:"#0D0D0D",marginBottom:"16px",
+              }}>Folyamat</h2>
+              <p style={{fontFamily:"'DM Sans',sans-serif",fontWeight:300,fontSize:"16px",
+                color:"rgba(0,0,0,0.4)",lineHeight:1.7,marginBottom:"60px",maxWidth:"520px"}}>
+                A konzultációtól a kivitelezésig – elhivatott szakértelem, hatékony végrehajtás.
+              </p>
+          </div>
           <div style={{display:"flex",flexDirection:"column",gap:"0"}}>
             {timeline.map((step, i) => (
-              <div key={i} style={{
+              <div key={i} className="sp-tl-item" style={{
                 display:"flex",alignItems:"baseline",gap:"28px",padding:"18px 0",
-                borderBottom:"1px solid rgba(0,0,0,0.07)",
-                opacity: tlVis ? 1 : 0,
-                transform: tlVis ? "translateX(0)" : "translateX(-20px)",
-                transition:`opacity 0.7s cubic-bezier(0.22,1,0.36,1) ${i*0.1}s, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${i*0.1}s`,
+                borderBottom:"1px solid rgba(0,0,0,0.07)", opacity:0
               }}>
                 <span style={{fontFamily:"'Tanker',sans-serif",fontSize:"clamp(24px,3vw,38px)",
                   color:ac,flexShrink:0,lineHeight:1}}>{String(i+1).padStart(2,"0")}.</span>
@@ -272,23 +268,23 @@ function ServicePage({ pageId, onNavigate }) {
       {/* ── Tech ── */}
       <section style={{background:"#040405",borderTop:"1px solid rgba(255,255,255,0.04)",
         padding:"clamp(80px,8vw,160px) clamp(24px,5vw,120px)"}}>
-        <div ref={techRef}>
-          <div style={{display:"flex",alignItems:"center",gap:"16px",marginBottom:"36px"}}>
-            <div style={{height:"2px",width:"52px",background:ac}}/>
-            <span style={{fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,
-              textTransform:"uppercase",letterSpacing:"0.22em",color:"rgba(255,255,255,0.3)"}}>Equipment</span>
+        <div>
+          <div className="sp-tech-header" style={{opacity: 0, marginBottom:"36px"}}>
+            <div style={{display:"flex",alignItems:"center",gap:"16px",marginBottom:"36px"}}>
+              <div style={{height:"2px",width:"52px",background:ac}}/>
+              <span style={{fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,
+                textTransform:"uppercase",letterSpacing:"0.22em",color:"rgba(255,255,255,0.3)"}}>Felszerelés</span>
+            </div>
+            <h2 style={{fontFamily:"'Tanker',sans-serif",fontSize:"clamp(2.5rem,5.5vw,5rem)",
+              textTransform:"uppercase",lineHeight:"0.9",color:"#FAFAF8",marginBottom:"64px"}}>{techTitle}</h2>
           </div>
-          <h2 style={{fontFamily:"'Tanker',sans-serif",fontSize:"clamp(2.5rem,5.5vw,5rem)",
-            textTransform:"uppercase",lineHeight:"0.9",color:"#FAFAF8",marginBottom:"64px"}}>{techTitle}</h2>
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:"24px"}}>
-            {techItems.map((item, i) => (
-              <div key={item.name} style={{
+            {techItems.map(item => (
+              <div key={item.name} className="sp-tech-card" style={{
                 borderLeft:`2px solid ${ac}`,
                 padding:"clamp(24px,2.5vw,40px) clamp(28px,3vw,48px)",
                 background:"linear-gradient(135deg,rgba(255,255,255,0.03) 0%,transparent 100%)",
-                opacity: techVis ? 1 : 0,
-                transform: techVis ? "translateY(0)" : "translateY(24px)",
-                transition:`opacity 0.8s cubic-bezier(0.22,1,0.36,1) ${i*0.12}s, transform 0.8s cubic-bezier(0.22,1,0.36,1) ${i*0.12}s`,
+                opacity: 0
               }}>
                 <h3 style={{fontFamily:"'Tanker',sans-serif",fontSize:"clamp(18px,2vw,26px)",
                   textTransform:"uppercase",color:"#FAFAF8",marginBottom:"12px"}}>{item.name}</h3>
@@ -306,10 +302,11 @@ function ServicePage({ pageId, onNavigate }) {
   );
 }
 
-function ServiceRow({ item, accentColor, index, visible }) {
+function ServiceRow({ item, accentColor }) {
   const [hov, setHov] = useSPState(false);
   return (
     <div
+      className="sp-service-row"
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
@@ -318,9 +315,7 @@ function ServiceRow({ item, accentColor, index, visible }) {
         borderBottom:"1px solid rgba(255,255,255,0.04)",
         borderLeft:`2px solid ${hov ? accentColor : "transparent"}`,
         transition:"border-color 0.4s cubic-bezier(0.22,1,0.36,1)",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateX(0)" : "translateX(-16px)",
-        transitionDelay: visible ? `${index * 0.1 + 0.2}s` : "0s",
+        opacity: 0
       }}
     >
       <div style={{width:"clamp(140px,22%,260px)",flexShrink:0,paddingLeft:"16px"}}>
@@ -338,7 +333,14 @@ function ServiceRow({ item, accentColor, index, visible }) {
 
 function CtaBanner({ accentColor, onNavigate }) {
   const [btnHov, setBtnHov] = useSPState(false);
-  const [ref, vis] = SPInView(0.2);
+  const ref = useSPRef(null);
+  
+  useSPEffect(() => {
+    if(window.gsap && window.ScrollTrigger && ref.current) {
+        gsap.fromTo(ref.current.children, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out", scrollTrigger: { trigger: ref.current, start: "top 80%" } });
+    }
+  }, []);
+
   return (
     <section ref={ref} style={{
       background:"linear-gradient(180deg,#FAFAF8 0%,#F5F5F0 100%)",
@@ -346,18 +348,15 @@ function CtaBanner({ accentColor, onNavigate }) {
       textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",
     }}>
       <div style={{fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,
-        textTransform:"uppercase",letterSpacing:"0.22em",color:"rgba(0,0,0,0.28)",marginBottom:"28px"}}>
-        Next Step
+        textTransform:"uppercase",letterSpacing:"0.22em",color:"rgba(0,0,0,0.28)",marginBottom:"28px", opacity:0}}>
+        Következő Lépés
       </div>
       <h2 style={{
         fontFamily:"'Tanker',sans-serif",fontSize:"clamp(2rem,5vw,4.5rem)",
         textTransform:"uppercase",lineHeight:"0.92",color:"#0D0D0D",
-        marginBottom:"48px",maxWidth:"720px",
-        opacity: vis ? 1 : 0,
-        transform: vis ? "translateY(0)" : "translateY(24px)",
-        transition:"opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)",
+        marginBottom:"48px",maxWidth:"720px", opacity:0
       }}>
-        Request a tailored quote.
+        Kérj személyre szabott ajánlatot.
       </h2>
       <button
         onClick={() => onNavigate("contact")}
@@ -367,12 +366,12 @@ function CtaBanner({ accentColor, onNavigate }) {
           background: btnHov ? accentColor : "#0D0D0D",
           color:"#FAFAF8",border:"none",cursor:"pointer",
           padding:"20px 60px",fontFamily:"'DM Sans',sans-serif",fontSize:"11px",fontWeight:500,
-          textTransform:"uppercase",letterSpacing:"0.2em",
+          textTransform:"uppercase",letterSpacing:"0.2em", opacity:0,
           transition:"background 0.4s cubic-bezier(0.23,1,0.32,1), transform 0.3s",
           transform: btnHov ? "scale(1.03)" : "scale(1)",
           boxShadow: btnHov ? "0 16px 48px rgba(0,0,0,0.15)" : "none",
         }}>
-        Get a Quote
+        Kérj ajánlatot
       </button>
     </section>
   );

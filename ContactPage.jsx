@@ -1,47 +1,32 @@
-// DRONERA — Contact Page (English, Premium)
+// DRONERA — Contact Page (Hungarian, Premium GSAP)
 
 const { useState: useCState, useEffect: useCEffect, useRef: useCRef } = React;
-
-function CInView(threshold = 0.12) {
-  const ref = useCRef(null);
-  const [vis, setVis] = useCState(false);
-  useCEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { setVis(true); obs.disconnect(); }
-    }, { threshold });
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
-  return [ref, vis];
-}
 
 function ContactPage() {
   const [form, setForm] = useCState({ name:"", company:"", email:"", phone:"", service:"", message:"" });
   const [errors, setErrors] = useCState({});
   const [submitted, setSubmitted] = useCState(false);
   const [focused, setFocused] = useCState(null);
-  const [formRef, formVis] = CInView(0.08);
-  const [heroVis, setHeroVis] = useCState(false);
+  
+  const containerRef = useCRef(null);
 
   useCEffect(() => {
-    const t = setTimeout(() => setHeroVis(true), 120);
-    return () => clearTimeout(t);
+    if(!window.gsap) return;
+    const q = gsap.utils.selector(containerRef);
+    gsap.fromTo(q(".cp-hero-elem"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "power4.out", delay: 0.2 });
+    if(window.ScrollTrigger) {
+        gsap.fromTo(q(".cp-form-elem"), { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: q(".cp-form-wrapper"), start: "top 85%" } });
+    }
   }, []);
 
   const validate = () => {
     const e = {};
-    if (!form.name.trim()) e.name = "Required";
-    if (!form.company.trim()) e.company = "Required";
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Invalid email";
+    if (!form.name.trim()) e.name = "Kötelező";
+    if (!form.company.trim()) e.company = "Kötelező";
+    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Érvénytelen e-mail";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
-
-  const reveal = (delay) => ({
-    opacity: heroVis ? 1 : 0,
-    transform: heroVis ? "translateY(0)" : "translateY(28px)",
-    transition: `opacity 1s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 1s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
-  });
 
   function Field({ id, placeholder, type="text", as="input", rows, options }) {
     const isFocused = focused === id;
@@ -82,7 +67,7 @@ function ContactPage() {
   }
 
   return (
-    <div>
+    <div ref={containerRef}>
       {/* Hero */}
       <section style={{
         minHeight:"100vh",background:"#000",
@@ -113,20 +98,18 @@ function ContactPage() {
         </svg>
 
         <div style={{position:"relative",zIndex:10,paddingTop:"120px"}}>
-          <div style={{...reveal(0.1),height:"2px",width:"72px",background:"#FAFAF8",marginBottom:"48px"}}/>
-          <h1 style={{
-            ...reveal(0.2),
+          <div className="cp-hero-elem" style={{height:"2px",width:"72px",background:"#FAFAF8",marginBottom:"48px", opacity:0}}/>
+          <h1 className="cp-hero-elem" style={{
             fontFamily:"'Tanker',sans-serif",fontSize:"clamp(3rem,9vw,8rem)",
             textTransform:"uppercase",letterSpacing:"0.02em",lineHeight:"0.88",color:"#FAFAF8",
-            display:"block",
-          }}>CONTACT</h1>
-          <p style={{
-            ...reveal(0.35),
+            display:"block", opacity:0
+          }}>KAPCSOLAT</h1>
+          <p className="cp-hero-elem" style={{
             fontFamily:"'DM Sans',sans-serif",fontSize:"clamp(14px,1.4vw,19px)",fontWeight:300,
             color:"rgba(255,255,255,0.42)",marginTop:"28px",maxWidth:"440px",lineHeight:1.8,
-            display:"block",
+            display:"block", opacity:0
           }}>
-            Reach out to our team — we respond within 24 hours.
+            Lépj kapcsolatba csapatunkkal — 24 órán belül válaszolunk.
           </p>
         </div>
         <div style={{
@@ -150,37 +133,34 @@ function ContactPage() {
           <rect width="100%" height="100%" fill="url(#form-grid)"/>
         </svg>
 
-        <div ref={formRef} style={{
+        <div className="cp-form-wrapper" style={{
           position:"relative",zIndex:1,
           display:"grid",gridTemplateColumns:"1fr 1fr",gap:"clamp(40px,6vw,100px)",
-          opacity: formVis ? 1 : 0,
-          transform: formVis ? "translateY(0)" : "translateY(28px)",
-          transition:"opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1)",
         }}>
           {/* Contact info */}
           <div>
-            <div style={{height:"2px",width:"72px",background:"#0D0D0D",marginBottom:"48px"}}/>
-            <h2 style={{
+            <div className="cp-form-elem" style={{height:"2px",width:"72px",background:"#0D0D0D",marginBottom:"48px", opacity:0}}/>
+            <h2 className="cp-form-elem" style={{
               fontFamily:"'Tanker',sans-serif",fontSize:"clamp(2rem,4vw,3.5rem)",
               textTransform:"uppercase",letterSpacing:"0.02em",lineHeight:"0.9",
-              color:"#0D0D0D",marginBottom:"56px",
-            }}>Get in Touch</h2>
+              color:"#0D0D0D",marginBottom:"56px", opacity:0
+            }}>Vedd fel velünk a kapcsolatot</h2>
 
             {[
               {
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" strokeWidth="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>,
-                label: "Email", val: "info@dronera.hu"
+                label: "E-mail", val: "info@dronera.hu"
               },
               {
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.38 2 2 0 0 1 3.04 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,
-                label: "Phone", val: "+36 1 234 5678"
+                label: "Telefon", val: "+36 1 234 5678"
               },
               {
                 icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" strokeWidth="1.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>,
-                label: "Location", val: "Budapest, Hungary"
+                label: "Cím", val: "Budapest, Magyarország"
               },
             ].map(({ icon, label, val }) => (
-              <div key={label} style={{display:"flex",alignItems:"flex-start",gap:"20px",marginBottom:"36px"}}>
+              <div key={label} className="cp-form-elem" style={{display:"flex",alignItems:"flex-start",gap:"20px",marginBottom:"36px", opacity:0}}>
                 <div style={{marginTop:"2px",flexShrink:0}}>{icon}</div>
                 <div>
                   <p style={{fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,
@@ -191,20 +171,20 @@ function ContactPage() {
             ))}
 
             {/* Response time badge */}
-            <div style={{
+            <div className="cp-form-elem" style={{
               display:"inline-flex",alignItems:"center",gap:"12px",
-              padding:"12px 20px",border:"1px solid rgba(0,0,0,0.1)",marginTop:"16px",
+              padding:"12px 20px",border:"1px solid rgba(0,0,0,0.1)",marginTop:"16px", opacity:0
             }}>
               <div style={{width:"6px",height:"6px",background:"#91B422",borderRadius:"50%"}}/>
               <span style={{fontFamily:"'DM Sans',sans-serif",fontSize:"11px",fontWeight:500,
                 textTransform:"uppercase",letterSpacing:"0.15em",color:"rgba(0,0,0,0.5)"}}>
-                Response within 24 hours
+                Válasz 24 órán belül
               </span>
             </div>
           </div>
 
           {/* Form */}
-          <div>
+          <div className="cp-form-elem" style={{opacity:0}}>
             {submitted ? (
               <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
                 height:"100%",textAlign:"center",padding:"60px 0"}}>
@@ -213,26 +193,26 @@ function ContactPage() {
                   <path d="M20 32L28 40L44 24" stroke="#0D0D0D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 <div style={{fontFamily:"'Tanker',sans-serif",fontSize:"clamp(36px,5vw,52px)",
-                  textTransform:"uppercase",color:"#0D0D0D",marginBottom:"16px"}}>Thank You.</div>
+                  textTransform:"uppercase",color:"#0D0D0D",marginBottom:"16px"}}>Köszönjük.</div>
                 <p style={{fontFamily:"'DM Sans',sans-serif",fontWeight:300,fontSize:"15px",
                   color:"rgba(0,0,0,0.42)",lineHeight:1.7,maxWidth:"320px"}}>
-                  We've received your message and will get back to you shortly.
+                  Üzenetedet megkaptuk, hamarosan felvesszük veled a kapcsolatot.
                 </p>
               </div>
             ) : (
               <form onSubmit={e => { e.preventDefault(); if(validate()) setSubmitted(true); }}>
-                <Field id="name" placeholder="Name *"/>
-                <Field id="company" placeholder="Company *"/>
-                <Field id="email" placeholder="Email *" type="email"/>
-                <Field id="phone" placeholder="Phone" type="tel"/>
+                <Field id="name" placeholder="Név *"/>
+                <Field id="company" placeholder="Cégnév *"/>
+                <Field id="email" placeholder="E-mail * " type="email"/>
+                <Field id="phone" placeholder="Telefonszám" type="tel"/>
                 <Field id="service" as="select" options={[
-                  {value:"", label:"Which service are you interested in?"},
-                  {value:"energy", label:"Energy"},
-                  {value:"agriculture", label:"Agriculture"},
-                  {value:"geodesy", label:"Geodesy"},
-                  {value:"other", label:"Other"},
+                  {value:"", label:"Melyik szolgáltatás iránt érdeklődsz?"},
+                  {value:"energy", label:"Energetika"},
+                  {value:"agriculture", label:"Mezőgazdaság"},
+                  {value:"geodesy", label:"Geodézia"},
+                  {value:"other", label:"Egyéb"},
                 ]}/>
-                <Field id="message" placeholder="Message" as="textarea" rows={5}/>
+                <Field id="message" placeholder="Üzenet" as="textarea" rows={5}/>
                 <SubmitButton/>
               </form>
             )}
@@ -256,7 +236,7 @@ function ContactPage() {
           textTransform:"uppercase",letterSpacing:"0.18em",marginTop:"8px",
           transition:"background 0.35s cubic-bezier(0.23,1,0.32,1), color 0.35s cubic-bezier(0.23,1,0.32,1)",
         }}>
-        Send Message
+        Üzenet Küldése
       </button>
     );
   }

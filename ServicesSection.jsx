@@ -1,10 +1,10 @@
-// DRONERA — Services Section + Marquee (English)
+// DRONERA — Services Section + Marquee (Hungarian, Premium)
 
 const { useState: useSvcState, useEffect: useSvcEffect, useRef: useSvcRef } = React;
 
 const SERVICES = [
   {
-    id: "energy", num: "01", title: "ENERGY", color: "#ED6D40",
+    id: "energy", num: "01", title: "ENERGETIKA", color: "#ED6D40",
     icon: (c) => (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
@@ -14,7 +14,7 @@ const SERVICES = [
     tags: ["Thermográfia", "Inspekció", "Monitoring"],
   },
   {
-    id: "agriculture", num: "02", title: "AGRICULTURE", color: "#91B422",
+    id: "agriculture", num: "02", title: "MEZŐGAZDASÁG", color: "#91B422",
     icon: (c) => (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2a9 9 0 0 1 9 9c0 5-9 13-9 13S3 16 3 11a9 9 0 0 1 9-9z"/>
@@ -25,7 +25,7 @@ const SERVICES = [
     tags: ["NDVI", "Precíziós", "Kárfelmérés"],
   },
   {
-    id: "geodesy", num: "03", title: "GEODESY", color: "#4682B4",
+    id: "geodesy", num: "03", title: "GEODÉZIA", color: "#4682B4",
     icon: (c) => (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
         <polygon points="3 20 9 4 15 14 19 9 21 20"/>
@@ -36,27 +36,13 @@ const SERVICES = [
   },
 ];
 
-function useInView(threshold = 0.15) {
-  const ref = useSvcRef(null);
-  const [visible, setVisible] = useSvcState(false);
-  useSvcEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { setVisible(true); obs.disconnect(); }
-    }, { threshold });
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
-  return [ref, visible];
-}
-
 function ServiceCard({ service, onNavigate, index }) {
   const [hovered, setHovered] = useSvcState(false);
-  const [ref, visible] = useInView(0.1);
   const { id, num, title, color, icon, description, tags } = service;
 
   return (
     <div
-      ref={ref}
+      className="svc-card"
       onClick={() => onNavigate(id)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -70,15 +56,11 @@ function ServiceCard({ service, onNavigate, index }) {
         display:"flex",flexDirection:"column",justifyContent:"space-between",
         cursor:"pointer",
         transition:"all 0.6s cubic-bezier(0.23,1,0.32,1)",
-        transform: visible
-          ? (hovered ? "translateY(-6px)" : "translateY(0)")
-          : "translateY(40px)",
-        opacity: visible ? 1 : 0,
-        transitionDelay: visible ? `${index * 0.12}s` : "0s",
+        transform: hovered ? "translateY(-6px)" : "translateY(0)",
+        opacity: 0,
         boxShadow: hovered ? "0 24px 60px rgba(0,0,0,0.4)" : "none",
       }}
     >
-      {/* Ghost number */}
       <span style={{
         position:"absolute",top:"20px",right:"24px",
         fontFamily:"'Tanker',sans-serif",fontSize:"7rem",lineHeight:1,
@@ -87,7 +69,6 @@ function ServiceCard({ service, onNavigate, index }) {
         transition:"opacity 0.6s",
       }}>{num}</span>
 
-      {/* Icon container */}
       <div style={{
         width:"52px",height:"52px",display:"flex",alignItems:"center",justifyContent:"center",
         borderRadius:"12px",marginBottom:"36px",
@@ -109,7 +90,6 @@ function ServiceCard({ service, onNavigate, index }) {
           fontFamily:"'DM Sans',sans-serif",
         }}>{description}</p>
 
-        {/* Tags */}
         <div style={{display:"flex",flexWrap:"wrap",gap:"8px",marginBottom:"28px"}}>
           {tags.map(t => (
             <span key={t} style={{
@@ -123,7 +103,6 @@ function ServiceCard({ service, onNavigate, index }) {
           ))}
         </div>
 
-        {/* CTA arrow */}
         <div style={{display:"flex",alignItems:"center",gap:"12px"}}>
           <span style={{
             fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,
@@ -162,25 +141,31 @@ function SectionLabel({ text }) {
 }
 
 function ServicesSection({ onNavigate }) {
-  const [hRef, hVisible] = useInView(0.1);
-  const marqueeText = "ENERGETIKA · MEZŐGAZDASÁG · GEODEZIA · PRECIZITÁS · MEGBÍZHATÓSÁG · INNOVÁCIÓ · ";
+  const containerRef = useSvcRef(null);
+  const marqueeText = "ENERGETIKA · MEZŐGAZDASÁG · GEODÉZIA · PRECIZITÁS · MEGBÍZHATÓSÁG · INNOVÁCIÓ · ";
+
+  useSvcEffect(() => {
+    if(window.gsap && window.ScrollTrigger && containerRef.current) {
+        gsap.fromTo(containerRef.current.querySelector(".svc-header"),
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: containerRef.current, start: "top 80%" } }
+        );
+        gsap.fromTo(containerRef.current.querySelectorAll(".svc-card"),
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out", scrollTrigger: { trigger: containerRef.current, start: "top 70%" } }
+        );
+    }
+  }, []);
 
   return (
     <>
-      <section id="services-section" style={{
+      <section id="services-section" ref={containerRef} style={{
         background:"#050507",
         padding:"clamp(100px,10vw,180px) clamp(24px,5vw,120px)",
       }}>
-        {/* Header */}
-        <div
-          ref={hRef}
-          style={{
-            maxWidth:"900px",marginBottom:"clamp(80px,8vw,130px)",
-            opacity: hVisible ? 1 : 0,
-            transform: hVisible ? "translateY(0)" : "translateY(30px)",
-            transition:"opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1)",
-          }}
-        >
+        <div className="svc-header" style={{
+            maxWidth:"900px",marginBottom:"clamp(80px,8vw,130px)", opacity: 0
+          }}>
           <SectionLabel text="Szektorspecifikus Szolgáltatások"/>
           <div style={{
             fontFamily:"'Tanker',sans-serif",fontSize:"clamp(2.5rem,6vw,5.5rem)",
@@ -192,7 +177,6 @@ function ServicesSection({ onNavigate }) {
           }}>Egy megoldás.</div>
         </div>
 
-        {/* Cards */}
         <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:"24px"}}>
           {SERVICES.map((s, i) => (
             <ServiceCard key={s.id} service={s} onNavigate={onNavigate} index={i}/>
@@ -213,57 +197,12 @@ function ServicesSection({ onNavigate }) {
               fontFamily:"'Tanker',sans-serif",whiteSpace:"nowrap",
               fontSize:"clamp(1.8rem,3vw,2.8rem)",textTransform:"uppercase",
               letterSpacing:"0.02em",color:"rgba(255,255,255,0.055)",
-            }}>{marqueeText.repeat(3)}</span>
+            }}>{marqueeText}</span>
           ))}
         </div>
       </section>
-
-      {/* Stats band */}
-      <StatsSection/>
     </>
   );
 }
 
-function StatsSection() {
-  const [ref, visible] = useInView(0.15);
-  const stats = [
-    { num: 127, suffix: "",  label: "Repülési óra" },
-    { num: 42,  suffix: "+", label: "Vállalati ügyfél" },
-    { num: 3,   suffix: "",  label: "Szakterület" },
-    { num: 99,  suffix: "%", label: "Ügyfél-elégedettség" },
-  ];
-
-  return (
-    <section ref={ref} style={{
-      background:"#020202",
-      padding:"clamp(80px,8vw,140px) clamp(24px,5vw,120px)",
-      borderBottom:"1px solid rgba(255,255,255,0.04)",
-    }}>
-      <div style={{
-        display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",
-        gap:"clamp(48px,5vw,80px)",maxWidth:"1200px",
-      }}>
-        {stats.map(({ num, suffix, label }, i) => (
-          <div key={label} style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(24px)",
-            transition:`opacity 0.9s cubic-bezier(0.22,1,0.36,1) ${i*0.1}s, transform 0.9s cubic-bezier(0.22,1,0.36,1) ${i*0.1}s`,
-          }}>
-            <div style={{
-              fontFamily:"'Tanker',sans-serif",fontSize:"clamp(3rem,5vw,4.5rem)",
-              textTransform:"uppercase",lineHeight:1,color:"#FAFAF8",marginBottom:"12px",
-            }}>
-              <CountUp target={num} suffix={suffix}/>
-            </div>
-            <div style={{
-              fontFamily:"'DM Sans',sans-serif",fontSize:"11px",fontWeight:500,
-              textTransform:"uppercase",letterSpacing:"0.2em",color:"rgba(255,255,255,0.28)",
-            }}>{label}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-Object.assign(window, { ServicesSection, SERVICES, SectionLabel, useInView });
+Object.assign(window, { ServicesSection, SERVICES, SectionLabel });

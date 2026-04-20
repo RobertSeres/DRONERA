@@ -1,18 +1,33 @@
-// DRONERA — Footer (English)
+// DRONERA — Footer (Hungarian)
+
+const { useEffect: useFooterEffect, useRef: useFooterRef } = React;
 
 function Footer({ onNavigate }) {
+  const footerRef = useFooterRef(null);
   const links = [
-    { id:"energy",       label:"Energy" },
-    { id:"agriculture",  label:"Agriculture" },
-    { id:"geodesy",      label:"Geodesy" },
-    { id:"contact",      label:"Contact" },
+    { id:"energy",       label:"Energetika" },
+    { id:"agriculture",  label:"Mezőgazdaság" },
+    { id:"geodesy",      label:"Geodézia" },
+    { id:"contact",      label:"Kapcsolat" },
   ];
 
+  useFooterEffect(() => {
+    if(window.gsap && window.ScrollTrigger && footerRef.current) {
+      gsap.fromTo(footerRef.current.querySelectorAll(".footer-col"),
+        { y: 30, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out",
+          scrollTrigger: { trigger: footerRef.current, start: "top 90%" }
+        }
+      );
+    }
+  }, []);
+
   return (
-    <footer style={{
+    <footer ref={footerRef} style={{
       background:"#000",color:"#FAFAF8",
       padding:"clamp(80px,8vw,140px) clamp(24px,5vw,120px) 56px",
-      position:"relative",
+      position:"relative", overflow:"hidden"
     }}>
       {/* Top gradient border */}
       <div style={{
@@ -20,12 +35,12 @@ function Footer({ onNavigate }) {
         background:"linear-gradient(to right, transparent, rgba(255,255,255,0.22), transparent)",
       }}/>
 
-      <div style={{
+      <div className="footer-grid" style={{
         display:"grid",gridTemplateColumns:"1.4fr 1fr 1fr",
         gap:"clamp(40px,5vw,80px)",maxWidth:"1200px",marginBottom:"64px",
       }}>
         {/* Brand */}
-        <div>
+        <div className="footer-col">
           <button onClick={() => onNavigate("home")} style={{
             fontFamily:"'Tanker',sans-serif",fontSize:"28px",
             textTransform:"uppercase",letterSpacing:"0.15em",color:"#FAFAF8",
@@ -36,7 +51,7 @@ function Footer({ onNavigate }) {
             fontSize:"13px",fontWeight:300,lineHeight:1.85,maxWidth:"280px",
             fontFamily:"'DM Sans',sans-serif",
           }}>
-            Premium industrial drone services — energy, agriculture, geodesy.
+            Prémium ipari drón szolgáltatások — energetika, mezőgazdaság, geodézia.
           </p>
           <p style={{
             marginTop:"24px",fontFamily:"monospace",fontSize:"11px",
@@ -45,42 +60,42 @@ function Footer({ onNavigate }) {
         </div>
 
         {/* Navigation */}
-        <div>
+        <div className="footer-col">
           <div style={{
             fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,
             textTransform:"uppercase",letterSpacing:"0.22em",color:"rgba(255,255,255,0.28)",
             marginBottom:"28px",
-          }}>Navigation</div>
-          <button onClick={() => onNavigate("home")} style={footerLinkStyle}>Home</button>
+          }}>Navigáció</div>
+          <button onClick={() => onNavigate("home")} style={footerLinkStyle}>Kezdőlap</button>
           {links.map(l => (
             <button key={l.id} onClick={() => onNavigate(l.id)} style={footerLinkStyle}>{l.label}</button>
           ))}
         </div>
 
         {/* Contact */}
-        <div>
+        <div className="footer-col">
           <div style={{
             fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,
             textTransform:"uppercase",letterSpacing:"0.22em",color:"rgba(255,255,255,0.28)",
             marginBottom:"28px",
-          }}>Contact</div>
+          }}>Kapcsolat</div>
           <p style={{...footerLinkStyle, cursor:"default"}}>info@dronera.hu</p>
           <p style={{...footerLinkStyle, cursor:"default"}}>+36 1 234 5678</p>
-          <p style={{...footerLinkStyle, cursor:"default"}}>Budapest, Hungary</p>
+          <p style={{...footerLinkStyle, cursor:"default"}}>Budapest, Magyarország</p>
         </div>
       </div>
 
       {/* Bottom bar */}
-      <div style={{
+      <div className="footer-col" style={{
         paddingTop:"28px",
         borderTop:"1px solid rgba(255,255,255,0.06)",
         display:"flex",justifyContent:"space-between",alignItems:"center",
         fontFamily:"'DM Sans',sans-serif",fontSize:"11px",color:"rgba(255,255,255,0.18)",
         flexWrap:"wrap",gap:"12px",
       }}>
-        <span>© 2026 DRONERA. All rights reserved.</span>
+        <span>© 2026 DRONERA. Minden jog fenntartva.</span>
         <span style={{fontFamily:"monospace",fontSize:"10px",letterSpacing:"0.08em"}}>
-          the new era
+          az új korszak
         </span>
       </div>
     </footer>
