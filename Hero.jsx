@@ -133,7 +133,7 @@ function Hero({ onNavigate }) {
             fontSize:"clamp(2rem,5.5vw,4.8rem)",
             textTransform:"lowercase",letterSpacing:"0.02em",lineHeight:0.9,
             color:"rgba(250,250,248,0.3)",display:"block",marginTop:"6px", opacity:0
-          }}>az új korszak</span>
+          }}>The new era</span>
         </div>
 
         {/* Sector tag */}

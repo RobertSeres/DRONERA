@@ -95,7 +95,7 @@ function Footer({ onNavigate }) {
       }}>
         <span>© 2026 DRONERA. Minden jog fenntartva.</span>
         <span style={{fontFamily:"monospace",fontSize:"10px",letterSpacing:"0.08em"}}>
-          az új korszak
+          the new era
         </span>
       </div>
     </footer>
