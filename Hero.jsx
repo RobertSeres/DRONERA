@@ -141,7 +141,7 @@ function Hero({ onNavigate }) {
           fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,
           textTransform:"uppercase",letterSpacing:"0.28em",
           color:"rgba(255,255,255,0.32)",marginTop:"36px", opacity:0
-        }}>Energetika · Mezőgazdaság · Geodézia</p>
+        }}>Energetika · Mezőgazdaság · Geodézia<br/><span style={{marginTop:"8px", display:"inline-block", color:"rgba(255,255,255,0.2)"}}>Méréseket országosan végezzük.</span></p>
 
         {/* CTA */}
         <button

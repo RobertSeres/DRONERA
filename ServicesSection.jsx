@@ -10,8 +10,8 @@ const SERVICES = [
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
       </svg>
     ),
-    description: "Napelem parkok, szélerőmű-parkok, villamos vezetékhálózatok légi inspekciója és thermográfiai felmérése.",
-    tags: ["Thermográfia", "Inspekció", "Monitoring"],
+    description: "Napelem felmérés, területfelmérés, hőhidak keresése és thermográfiai vizsgálatok.",
+    tags: ["Thermográfia", "Hőhidak", "Napelem"],
   },
   {
     id: "agriculture", num: "02", title: "MEZŐGAZDASÁG", color: "#91B422",
@@ -21,8 +21,8 @@ const SERVICES = [
         <circle cx="12" cy="11" r="3"/>
       </svg>
     ),
-    description: "Precíziós növénytermesztés támogatása, NDVI-analízis, területtérkép készítés, kárfelmérés és növényvédő-szer kijuttatás.",
-    tags: ["NDVI", "Precíziós", "Kárfelmérés"],
+    description: "Precíziós növénytermesztés támogatása, NDVI-analízis, kijuttatási terv készítés, kárfelmérés és növényvédő-szer kijuttatás.",
+    tags: ["NDVI", "Precíziós", "Kijuttatási Terv"],
   },
   {
     id: "geodesy", num: "03", title: "GEODÉZIA", color: "#4682B4",
@@ -31,7 +31,7 @@ const SERVICES = [
         <polygon points="3 20 9 4 15 14 19 9 21 20"/>
       </svg>
     ),
-    description: "Fotogrammetriás felmérés, 3D modellezés, pontfelhő generálás, területi és épületfelmérések centiméteres pontossággal.",
+    description: "Fotogrammetriás felmérés, 3D modellezés, pontfelhő generálás, területi és épületfelmérések. Méréseket országosan végezzük.",
     tags: ["3D Modell", "Pontfelhő", "LiDAR"],
   },
 ];
