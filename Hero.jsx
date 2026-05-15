@@ -69,6 +69,8 @@ function Hero({ onNavigate }) {
         backgroundImage:"url('assets/dronehero.webp')",
         backgroundSize:"cover",backgroundPosition:"center center",
         transform:"scale(1.08)",willChange:"transform",
+        WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%)",
+        maskImage: "linear-gradient(to right, transparent 0%, black 15%)"
       }}/>
 
       {/* Overlays */}
@@ -102,21 +104,23 @@ function Hero({ onNavigate }) {
             { v:3,   s:"", l:"Szektor" },
             { v:100, s:"%",l:"Pontosság" },
           ].map(({ v, s, l }) => (
-            <div key={l} className="hero-stat" style={{opacity:0}}>
+            <div key={l} className="hero-stat" style={{opacity:0, paddingBottom:"16px", borderBottom:"1px solid rgba(255,255,255,0.12)"}}>
               <span style={{
                 fontFamily:"'Tanker',sans-serif",fontSize:"clamp(2.8rem,5.5vw,5rem)",
                 textTransform:"uppercase",lineHeight:1,color:"#FAFAF8",display:"block",
+                fontWeight: 500
               }}>
                 <CountUp target={v} suffix={s}/>
               </span>
               <p style={{
                 fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,
-                textTransform:"uppercase",letterSpacing:"0.25em",
+                textTransform:"uppercase",letterSpacing:"0.2em",
                 color:"rgba(255,255,255,0.3)",marginTop:"10px",
               }}>{l}</p>
             </div>
           ))}
         </div>
+        <div style={{height:"1px",width:"100%",background:"rgba(255,255,255,0.08)",marginBottom:"clamp(48px,5vw,80px)",marginTop:"calc(clamp(48px,5vw,80px) * -1 + 16px)"}}/>
 
         {/* Headline */}
         <div style={{overflow:"hidden"}}>
@@ -151,14 +155,12 @@ function Hero({ onNavigate }) {
             marginTop:"48px",padding:"18px 52px",
             fontFamily:"'DM Sans',sans-serif",fontSize:"11px",fontWeight:500,
             textTransform:"uppercase",letterSpacing:"0.2em",
-            color: ctaHover ? "#0D0D0D" : "#FAFAF8",
-            background: ctaHover ? "#FAFAF8" : "transparent",
-            border:"1px solid rgba(255,255,255,0.6)",
+            color: "#000000",
+            background: "#FFFFFF",
+            border:"none",
+            borderRadius: "0",
             cursor:"pointer", opacity:0,
-            transition:"background 0.35s cubic-bezier(0.23,1,0.32,1), color 0.35s cubic-bezier(0.23,1,0.32,1)",
           }}
-          onMouseEnter={() => setCtaHover(true)}
-          onMouseLeave={() => setCtaHover(false)}
           onClick={() => {
             const el = document.getElementById("services-section");
             if (el) window.scrollTo({ top: el.offsetTop, behavior: "smooth" });

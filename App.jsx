@@ -1,7 +1,6 @@
 const { useState, useEffect, useRef } = React;
 
 function CtaSection({ onNavigate }) {
-  const [hover, setHover] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -19,6 +18,7 @@ function CtaSection({ onNavigate }) {
   return (
     <section style={{
       background:"linear-gradient(180deg,#FAFAF8 0%,#F5F5F0 100%)",
+      borderTop: "1px solid rgba(0,0,0,0.08)",
       padding:"clamp(100px,10vw,180px) clamp(24px,5vw,120px)",
       textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",
       position:"relative",overflow:"hidden",
@@ -32,12 +32,13 @@ function CtaSection({ onNavigate }) {
         <rect width="100%" height="100%" fill="url(#cta-grid)"/>
       </svg>
       <div ref={ref} style={{position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <div style={{fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,textTransform:"uppercase",letterSpacing:"0.2em",color:"rgba(0,0,0,0.4)",marginBottom:"12px"}}>KÖVETKEZŐ LÉPÉS</div>
         <div style={{fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,textTransform:"uppercase",letterSpacing:"0.22em",color:"rgba(0,0,0,0.28)",marginBottom:"28px"}}>Készen állsz a kezdésre?</div>
-        <h2 style={{fontFamily:"'Tanker',sans-serif",fontSize:"clamp(2.5rem,6vw,5.5rem)",textTransform:"uppercase",letterSpacing:"0.02em",lineHeight:"0.92",color:"#0D0D0D",marginBottom:"52px",maxWidth:"760px"}}>Kérj személyre szabott ajánlatot.</h2>
-        <button onClick={() => onNavigate("contact")} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} style={{
-            background: hover ? "rgba(13,13,13,0.88)" : "#0D0D0D", color:"#FAFAF8",border:"none",cursor:"none",
-            padding:"20px 68px",fontFamily:"'DM Sans',sans-serif",fontSize:"11px",fontWeight:500,textTransform:"uppercase",letterSpacing:"0.2em",
-            transform: hover ? "scale(1.03)" : "scale(1)",boxShadow: hover ? "0 16px 48px rgba(0,0,0,0.18)" : "0 4px 20px rgba(0,0,0,0.06)",transition:"all 0.4s cubic-bezier(0.23,1,0.32,1)"
+        <h2 style={{fontFamily:"'Tanker',sans-serif",fontSize:"clamp(2.5rem,6vw,5.5rem)",textTransform:"uppercase",letterSpacing:"0.02em",lineHeight:"1.17",color:"#0D0D0D",marginBottom:"52px",maxWidth:"760px"}}>Kérj személyre szabott ajánlatot.</h2>
+        <button onClick={() => onNavigate("contact")} style={{
+            background: "#000000", color:"#FFFFFF",border:"none",cursor:"pointer",
+            padding:"20px 68px",fontFamily:"'DM Sans',sans-serif",fontSize:"11px",fontWeight:500,textTransform:"uppercase",letterSpacing:"0.15em",
+            borderRadius: "0",
           }}>Ajánlatkérés</button>
       </div>
     </section>

@@ -417,7 +417,7 @@ function CtaBanner({ accentColor, onNavigate }) {
       </div>
       <h2 style={{
         fontFamily: "'Tanker',sans-serif", fontSize: "clamp(2rem,5vw,4.5rem)",
-        textTransform: "uppercase", lineHeight: "0.92", color: "#0D0D0D",
+        textTransform: "uppercase", lineHeight: "1.2", color: "#0D0D0D",
         marginBottom: "48px", maxWidth: "720px", opacity: 0
       }}>
         Kérj személyre szabott ajánlatot.

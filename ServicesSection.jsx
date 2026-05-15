@@ -37,45 +37,37 @@ const SERVICES = [
 ];
 
 function ServiceCard({ service, onNavigate, index }) {
-  const [hovered, setHovered] = useSvcState(false);
   const { id, num, title, color, icon, description, tags } = service;
 
   return (
     <div
       className="svc-card"
       onClick={() => onNavigate(id)}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       style={{
         position:"relative",
-        background: hovered ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.02)",
-        border:"1px solid rgba(255,255,255,0.05)",
-        borderTop: hovered ? `3px solid ${color}` : "3px solid transparent",
+        background: "rgba(255,255,255,0.03)",
+        border:"1px solid rgba(255,255,255,0.08)",
+        borderTop: `2px solid ${color}`,
         padding:"clamp(32px,3.5vw,52px)",
         minHeight:"460px",
         display:"flex",flexDirection:"column",justifyContent:"space-between",
         cursor:"pointer",
-        transition:"all 0.6s cubic-bezier(0.23,1,0.32,1)",
-        transform: hovered ? "translateY(-6px)" : "translateY(0)",
         opacity: 0,
-        boxShadow: hovered ? "0 24px 60px rgba(0,0,0,0.4)" : "none",
       }}
     >
       <span style={{
         position:"absolute",top:"20px",right:"24px",
         fontFamily:"'Tanker',sans-serif",fontSize:"7rem",lineHeight:1,
-        color, opacity: hovered ? 0.13 : 0.04,
+        color: "rgba(255,255,255,0.07)",
         pointerEvents:"none",userSelect:"none",
-        transition:"opacity 0.6s",
       }}>{num}</span>
 
       <div style={{
         width:"52px",height:"52px",display:"flex",alignItems:"center",justifyContent:"center",
         borderRadius:"12px",marginBottom:"36px",
-        background: hovered ? `${color}18` : "rgba(255,255,255,0.03)",
-        transition:"background 0.4s",
+        background: "rgba(255,255,255,0.03)",
       }}>
-        {icon(hovered ? color : "rgba(255,255,255,0.4)")}
+        {icon("rgba(255,255,255,0.4)")}
       </div>
 
       <div style={{flex:1,display:"flex",flexDirection:"column"}}>
@@ -95,10 +87,10 @@ function ServiceCard({ service, onNavigate, index }) {
             <span key={t} style={{
               padding:"5px 12px",fontSize:"10px",fontWeight:500,
               textTransform:"uppercase",letterSpacing:"0.15em",
-              border:`1px solid ${hovered ? color+"35" : "rgba(255,255,255,0.07)"}`,
-              color: hovered ? color : "rgba(255,255,255,0.35)",
+              border:`1px solid ${color}66`,
+              background:"transparent",
+              color: "rgba(255,255,255,0.35)",
               fontFamily:"'DM Sans',sans-serif",
-              transition:"all 0.4s",
             }}>{t}</span>
           ))}
         </div>
@@ -107,18 +99,15 @@ function ServiceCard({ service, onNavigate, index }) {
           <span style={{
             fontFamily:"'DM Sans',sans-serif",fontSize:"10px",fontWeight:500,
             textTransform:"uppercase",letterSpacing:"0.15em",
-            color: hovered ? color : "rgba(255,255,255,0.3)",
-            transition:"color 0.3s",
+            color: color,
           }}>Részletek</span>
           <div style={{
             height:"1px",
-            background: hovered ? color : "rgba(255,255,255,0.12)",
-            width: hovered ? "52px" : "32px",
-            transition:"all 0.5s",
+            background: color,
+            width: "32px",
           }}/>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-            stroke={hovered ? color : "rgba(255,255,255,0.2)"} strokeWidth="1.5"
-            style={{transform: hovered ? "translateX(4px)" : "translateX(0)", transition:"transform 0.4s"}}>
+            stroke={color} strokeWidth="1.5">
             <line x1="5" y1="12" x2="19" y2="12"/>
             <polyline points="12 5 19 12 12 19"/>
           </svg>
@@ -187,8 +176,8 @@ function ServicesSection({ onNavigate }) {
       {/* Marquee */}
       <section style={{
         background:"#030304",overflow:"hidden",
-        borderTop:"1px solid rgba(255,255,255,0.04)",
-        borderBottom:"1px solid rgba(255,255,255,0.04)",
+        borderTop:"1px solid rgba(255,255,255,0.08)",
+        borderBottom:"1px solid rgba(255,255,255,0.08)",
         padding:"72px 0",
       }}>
         <div style={{display:"flex",width:"max-content",animation:"marquee 55s linear infinite"}}>
@@ -196,7 +185,7 @@ function ServicesSection({ onNavigate }) {
             <span key={i} style={{
               fontFamily:"'Tanker',sans-serif",whiteSpace:"nowrap",
               fontSize:"clamp(1.8rem,3vw,2.8rem)",textTransform:"uppercase",
-              letterSpacing:"0.02em",color:"rgba(255,255,255,0.055)",
+              letterSpacing:"0.25em",color:"rgba(255,255,255,0.25)",
             }}>{marqueeText}</span>
           ))}
         </div>
