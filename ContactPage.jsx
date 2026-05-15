@@ -65,43 +65,7 @@ function ContactPage() {
     }
   };
 
-  function Field({ id, placeholder, type = "text", as = "input", rows, options }) {
-    const isFocused = focused === id;
-    const base = {
-      width: "100%", background: "transparent", border: "none",
-      borderBottom: `1px solid ${isFocused ? "transparent" : "rgba(0,0,0,0.15)"}`,
-      padding: "14px 0", fontSize: "15px", fontWeight: 300,
-      color: "#0D0D0D", fontFamily: "'DM Sans',sans-serif", outline: "none",
-    };
-    const el = as === "textarea"
-      ? <textarea placeholder={placeholder} value={form[id]} rows={rows || 5}
-        onChange={e => setForm(p => ({ ...p, [id]: e.target.value }))}
-        onFocus={() => setFocused(id)} onBlur={() => setFocused(null)}
-        style={{ ...base, resize: "none" }} />
-      : as === "select"
-        ? <select value={form[id]}
-          onChange={e => setForm(p => ({ ...p, [id]: e.target.value }))}
-          onFocus={() => setFocused(id)} onBlur={() => setFocused(null)}
-          style={{ ...base, appearance: "none", cursor: "pointer" }}>
-          {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
-        : <input type={type} placeholder={placeholder} value={form[id]}
-          onChange={e => { setForm(p => ({ ...p, [id]: e.target.value })); if (errors[id]) setErrors(p => ({ ...p, [id]: undefined })); }}
-          onFocus={() => setFocused(id)} onBlur={() => setFocused(null)}
-          style={base} />;
-
-    return (
-      <div style={{ position: "relative", marginBottom: "28px" }}>
-        {el}
-        <div style={{
-          position: "absolute", bottom: 0, left: 0, height: "2px", background: "#0D0D0D",
-          width: isFocused ? "100%" : "0",
-          transition: "width 0.35s cubic-bezier(0.22,1,0.36,1)",
-        }} />
-        {errors[id] && <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "11px", color: "#c00", marginTop: "6px" }}>{errors[id]}</p>}
-      </div>
-    );
-  }
+  // Sub-components moved outside to prevent re-mounting and losing focus
 
   return (
     <div ref={containerRef}>
@@ -250,18 +214,18 @@ function ContactPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
-                <Field id="name" placeholder="Név *" />
-                <Field id="company" placeholder="Cégnév *" />
-                <Field id="email" placeholder="E-mail * " type="email" />
-                <Field id="phone" placeholder="Telefonszám" type="tel" />
-                <Field id="service" as="select" options={[
+                <Field id="name" placeholder="Név *" form={form} setForm={setForm} focused={focused} setFocused={setFocused} errors={errors} setErrors={setErrors} />
+                <Field id="company" placeholder="Cégnév *" form={form} setForm={setForm} focused={focused} setFocused={setFocused} errors={errors} setErrors={setErrors} />
+                <Field id="email" placeholder="E-mail * " type="email" form={form} setForm={setForm} focused={focused} setFocused={setFocused} errors={errors} setErrors={setErrors} />
+                <Field id="phone" placeholder="Telefonszám" type="tel" form={form} setForm={setForm} focused={focused} setFocused={setFocused} errors={errors} setErrors={setErrors} />
+                <Field id="service" as="select" form={form} setForm={setForm} focused={focused} setFocused={setFocused} errors={errors} setErrors={setErrors} options={[
                   { value: "", label: "Melyik szolgáltatás iránt érdeklődsz?" },
                   { value: "energy", label: "Energetika" },
                   { value: "agriculture", label: "Mezőgazdaság" },
                   { value: "geodesy", label: "Geodézia" },
                   { value: "other", label: "Egyéb" },
                 ]} />
-                <Field id="message" placeholder="Üzenet" as="textarea" rows={5} />
+                <Field id="message" placeholder="Üzenet" as="textarea" rows={5} form={form} setForm={setForm} focused={focused} setFocused={setFocused} errors={errors} setErrors={setErrors} />
                 <SubmitButton isSubmitting={isSubmitting} />
               </form>
             )}
@@ -271,26 +235,66 @@ function ContactPage() {
     </div>
   );
 
-  function SubmitButton({ isSubmitting }) {
-    const [hov, setHov] = useCState(false);
-    return (
-      <button type="submit"
-        disabled={isSubmitting}
-        onMouseEnter={() => setHov(true)}
-        onMouseLeave={() => setHov(false)}
-        style={{
-          background: hov ? "#0D0D0D" : "transparent",
-          color: hov ? "#FAFAF8" : "#0D0D0D",
-          border: "1px solid #0D0D0D", cursor: "pointer",
-          padding: "16px 44px", fontFamily: "'DM Sans',sans-serif", fontSize: "11px", fontWeight: 500,
-          textTransform: "uppercase", letterSpacing: "0.18em", marginTop: "8px",
-          transition: "background 0.35s cubic-bezier(0.23,1,0.32,1), color 0.35s cubic-bezier(0.23,1,0.32,1)",
-          opacity: isSubmitting ? 0.6 : 1,
-        }}>
-        {isSubmitting ? "Küldés..." : "Üzenet Küldése"}
-      </button>
-    );
-  }
+}
+
+function Field({ id, placeholder, type = "text", as = "input", rows, options, form, setForm, focused, setFocused, errors, setErrors }) {
+  const isFocused = focused === id;
+  const base = {
+    width: "100%", background: "transparent", border: "none",
+    borderBottom: `1px solid ${isFocused ? "transparent" : "rgba(0,0,0,0.15)"}`,
+    padding: "14px 0", fontSize: "15px", fontWeight: 300,
+    color: "#0D0D0D", fontFamily: "'DM Sans',sans-serif", outline: "none",
+  };
+  const el = as === "textarea"
+    ? <textarea placeholder={placeholder} value={form[id]} rows={rows || 5}
+      onChange={e => setForm(p => ({ ...p, [id]: e.target.value }))}
+      onFocus={() => setFocused(id)} onBlur={() => setFocused(null)}
+      style={{ ...base, resize: "none" }} />
+    : as === "select"
+      ? <select value={form[id]}
+        onChange={e => setForm(p => ({ ...p, [id]: e.target.value }))}
+        onFocus={() => setFocused(id)} onBlur={() => setFocused(null)}
+        style={{ ...base, appearance: "none", cursor: "pointer" }}>
+        {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+      : <input type={type} placeholder={placeholder} value={form[id]}
+        onChange={e => { setForm(p => ({ ...p, [id]: e.target.value })); if (errors[id]) setErrors(p => ({ ...p, [id]: undefined })); }}
+        onFocus={() => setFocused(id)} onBlur={() => setFocused(null)}
+        style={base} />;
+
+  return (
+    <div style={{ position: "relative", marginBottom: "28px" }}>
+      {el}
+      <div style={{
+        position: "absolute", bottom: 0, left: 0, height: "2px", background: "#0D0D0D",
+        width: isFocused ? "100%" : "0",
+        transition: "width 0.35s cubic-bezier(0.22,1,0.36,1)",
+      }} />
+      {errors[id] && <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "11px", color: "#c00", marginTop: "6px" }}>{errors[id]}</p>}
+    </div>
+  );
+}
+
+function SubmitButton({ isSubmitting }) {
+  const { useState: useCState } = React;
+  const [hov, setHov] = useCState(false);
+  return (
+    <button type="submit"
+      disabled={isSubmitting}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        background: hov ? "#0D0D0D" : "transparent",
+        color: hov ? "#FAFAF8" : "#0D0D0D",
+        border: "1px solid #0D0D0D", cursor: "pointer",
+        padding: "16px 44px", fontFamily: "'DM Sans',sans-serif", fontSize: "11px", fontWeight: 500,
+        textTransform: "uppercase", letterSpacing: "0.18em", marginTop: "8px",
+        transition: "background 0.35s cubic-bezier(0.23,1,0.32,1), color 0.35s cubic-bezier(0.23,1,0.32,1)",
+        opacity: isSubmitting ? 0.6 : 1,
+      }}>
+      {isSubmitting ? "Küldés..." : "Üzenet Küldése"}
+    </button>
+  );
 }
 
 Object.assign(window, { ContactPage });
